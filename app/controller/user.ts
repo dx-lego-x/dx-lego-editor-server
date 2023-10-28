@@ -1,6 +1,65 @@
 import { Controller, Application } from 'egg'
 import resHelper from '../utils/resHelper'
-import { UserRegisterProps } from '../service/user'
+import { UserLoginProps, UserRegisterProps } from '../service/user'
+import validateInput from '../decorator/validateInput'
+import { ParameterRuleItem, ParameterRules } from 'parameter'
+
+const userValidateRules: ParameterRules = {
+  username: { type: 'string', required: true, min: 4 },
+  password: { type: 'password', required: true, min: 2 },
+  email: { type: 'email' },
+  phoneNumber: { type: 'string', format: /^1[3-9]\d{9}$/ },
+  nickName: { type: 'string', min: 4, allowEmpty: true },
+}
+
+function makeRegisterRules(body?: UserRegisterProps): ParameterRules {
+  const { type = 'email' } = body || {}
+
+  const baseRules = {
+    username: userValidateRules.username,
+    password: userValidateRules.password,
+    nickName: userValidateRules.nickName
+  }
+
+  if (type === 'phoneNumber') {
+    return {
+      ...baseRules,
+      email: {
+        ...userValidateRules.email as ParameterRuleItem,
+        allowEmpty: true,
+      },
+      phoneNumber: {
+        ...userValidateRules.phoneNumber as ParameterRuleItem,
+        required: true
+      }
+    }
+  }
+
+  return {
+    ...baseRules,
+    email: {
+      ...userValidateRules.email as ParameterRuleItem,
+      required: true
+    },
+    phoneNumber: {
+      ...userValidateRules.phoneNumber as ParameterRuleItem,
+      allowEmpty: true
+    }
+  }
+
+}
+
+function makeLoginRules(body?: UserLoginProps): ParameterRules {
+  const { type = 'username' } = body || {}
+  if (type === 'phoneNumber') {
+    // todo
+  }
+
+  return {
+    username: userValidateRules.username,
+    password: userValidateRules.password
+  }
+}
 
 function genToken(app: Application, username: string, id: string) {
   // 这里会把username和_id存到ctx.state.user里
@@ -30,10 +89,11 @@ export default class UserController extends Controller {
     }
   }
 
+  @validateInput(makeRegisterRules, 'registerParamsError')
   async register() {
     const { ctx, service } = this
     const registerProps = ctx.request.body as UserRegisterProps
-    const { username, password, email, phoneNumber, type } = registerProps
+    const { username } = registerProps
 
     const userData = await service.user.findByUsername(username)
     ctx.logger.info('register ->', 'find username', userData)
@@ -43,18 +103,26 @@ export default class UserController extends Controller {
 
     ctx.logger.info('register ->', 'params', registerProps)
 
-    if (!username || !password || !type || (type === 'email' && !email) || (type === 'phoneNumber' && !phoneNumber)) {
-      return resHelper.errorWithType(ctx, 'registerParamsError')
-    }
+    // if (!username || !password || !type || (type === 'email' && !email) || (type === 'phoneNumber' && !phoneNumber)) {
+    //   return resHelper.errorWithType(ctx, 'registerParamsError')
+    // }
 
     const res = await service.user.createUser(registerProps)
     ctx.logger.info('register ->', 'success with data', res)
     return resHelper.success(ctx, {})
   }
 
+  @validateInput(makeLoginRules, 'loginFail')
   async login() {
     const { app, ctx, service } = this
-    const { username, password } = ctx.request.body
+    const loginParams = ctx.request.body as UserLoginProps
+    const { type = 'username' } = loginParams
+
+    if (type !== 'username') {
+      return resHelper.errorWithType(ctx, 'loginFail')
+    }
+
+    const { username = '', password = '' } = loginParams
 
     const userData = await service.user.findByUsername(username, true)
     if (!userData || !userData.password || !await ctx.compare(password, userData.password)) {

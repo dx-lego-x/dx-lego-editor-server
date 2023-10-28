@@ -3,6 +3,13 @@ import { UserProps } from '../types.d.ts/user'
 
 export type UserRegisterProps = Pick<UserProps, 'username' | 'password' | 'email' | 'phoneNumber' | 'nickName' | 'type'>
 export type UserResponseProps = Pick<UserProps, 'id' | 'username' | 'password' | 'email' | 'phoneNumber' | 'nickName' | 'sex' | 'picture' | 'createdAt' | 'role'>
+export interface UserLoginProps {
+  type: 'username' | 'phoneNumber' | 'oauth'
+  username?: string
+  phoneNumber?: string
+  password?: string
+  authCode?: string
+}
 
 export default class UserService extends Service {
   public async createUser(payload: UserRegisterProps) {
