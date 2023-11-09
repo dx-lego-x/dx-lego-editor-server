@@ -1,5 +1,5 @@
 import { Context } from 'egg'
-import { BaseResponse } from '../types.d.ts/base'
+import { BaseResponse } from '../types/base'
 import { GlobalErrorTypes, globalErrorEntities } from '../error'
 
 function success(ctx: Context, res: any) {

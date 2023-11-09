@@ -1,7 +1,7 @@
 import { Application } from 'egg'
 import { Schema } from 'mongoose'
 import * as AutoIncrementFactory from 'mongoose-sequence'
-import { UserModelProps } from '../types.d.ts/user'
+import { UserModelProps } from '../types/user'
 
 // export interface UserProps {
 //   username: string

@@ -61,9 +61,9 @@ function makeLoginRules(body?: UserLoginProps): ParameterRules {
   }
 }
 
-function genToken(app: Application, username: string, id: string) {
+function genToken(app: Application, _id: string, id: string) {
   // 这里会把username和_id存到ctx.state.user里
-  return app.jwt.sign({ username, id }, app.config.jwt.secret, { expiresIn: app.config.jwtExpires })
+  return app.jwt.sign({ _id, id }, app.config.jwt.secret, { expiresIn: app.config.jwtExpires })
 }
 
 export default class UserController extends Controller {
@@ -81,7 +81,7 @@ export default class UserController extends Controller {
       return resHelper.errorWithType(ctx, 'infoFetchFail')
     }
 
-    const userData = await service.user.findByUsername(ctx.state.user.username)
+    const userData = await service.user.findUser({ id: ctx.state.user.id })
     if (userData) {
       resHelper.success(ctx, userData)
     } else {
@@ -95,7 +95,7 @@ export default class UserController extends Controller {
     const registerProps = ctx.request.body as UserRegisterProps
     const { username } = registerProps
 
-    const userData = await service.user.findByUsername(username)
+    const userData = await service.user.findUser({ username })
     ctx.logger.info('register ->', 'find username', userData)
     if (userData) {
       return resHelper.errorWithType(ctx, 'createUserAlreadyExists')
@@ -124,12 +124,12 @@ export default class UserController extends Controller {
 
     const { username = '', password = '' } = loginParams
 
-    const userData = await service.user.findByUsername(username, true)
+    const userData = await service.user.findUser({ username }, true)
     if (!userData || !userData.password || !await ctx.compare(password, userData.password)) {
       return resHelper.errorWithType(ctx, 'loginFail')
     }
 
-    const token = genToken(app, userData.username + '', userData.id + '')
+    const token = genToken(app, userData._id + '', userData.id + '')
     resHelper.success(ctx, { token })
   }
 }

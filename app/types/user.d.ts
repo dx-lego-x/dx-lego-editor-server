@@ -15,20 +15,6 @@ export interface UserModelProps {
 }
 
 export interface UserProps extends UserModelProps {
+  _id: string
   id: string
 }
-
-// export interface UserProps {
-//   username: string
-//   password: string
-//   email?: string
-//   nickName?: string
-//   picture?: string
-//   phoneNumber?: string
-//   createdAt: Date
-//   updatedAt: Date
-//   type: 'email' | 'phoneNumber' | 'oauth'
-//   provider?: string
-//   oauthId?: string
-//   role?: 'admin' | 'normal'
-// } 

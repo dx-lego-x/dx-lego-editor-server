@@ -1,8 +1,10 @@
 import { Service } from 'egg'
-import { UserProps } from '../types.d.ts/user'
+import { UserProps } from '../types/user'
 
 export type UserRegisterProps = Pick<UserProps, 'username' | 'password' | 'email' | 'phoneNumber' | 'nickName' | 'type'>
-export type UserResponseProps = Pick<UserProps, 'id' | 'username' | 'password' | 'email' | 'phoneNumber' | 'nickName' | 'sex' | 'picture' | 'createdAt' | 'role'>
+export type UserResponseProps = Pick<UserProps, '_id' | 'id' | 'username' | 'password' | 'email' | 'phoneNumber' | 'nickName' | 'sex' | 'picture' | 'createdAt' | 'role'>
+export type UserTokenProps = Pick<UserProps, '_id' | 'id'>
+
 export interface UserLoginProps {
   type: 'username' | 'phoneNumber' | 'oauth'
   username?: string
@@ -30,14 +32,15 @@ export default class UserService extends Service {
     return userData
   }
 
-  public async findByUsername(username: string, needPassword = false) {
-    const userData = await this.ctx.model.User.findOne({ username })
+  public async findUser(options: Partial<UserProps>, needPassword = false) {
+    const userData = await this.ctx.model.User.findOne(options)
 
     let returnData: Partial<UserResponseProps> | null = null
     if (userData) {
-      const { id, username, password, email, nickName, sex, picture, phoneNumber, createdAt, role } = userData as UserProps
+      const { _id, id, username, password, email, nickName, sex, picture, phoneNumber, createdAt, role } = userData as UserProps
 
       returnData = {
+        _id,
         id,
         username,
         email,
