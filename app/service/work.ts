@@ -27,7 +27,8 @@ function genEmptySchema(): DxLegoSchema {
           backgroundSize: 'cover',
           display: 'flex',
           flexDirection: 'column',
-          minHeight: '560px',
+          width: '375px',
+          height: '560px',
         },
         custom: {
           children: [],
@@ -52,7 +53,7 @@ const defaultTextStyleProps: any = {
   borderColor: '#262626',
   borderWidth: '0px',
   borderRadius: '0px',
-  boxShadow: '0px 0px 0px #FFFFFF',
+  boxShadow: 'none',
   opacity: '1',
   position: 'static',
   left: '0px',
