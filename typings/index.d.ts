@@ -32,4 +32,5 @@ declare module 'egg' {
       v1: string
     }
   }
+
 }

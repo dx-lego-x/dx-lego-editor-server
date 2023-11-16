@@ -19,6 +19,7 @@ import { UserModelProps } from '../types/user'
 // }
 
 function initUserModel(app: Application) {
+  // @ts-ignore
   const autoIncrement = AutoIncrementFactory(app.mongoose)
   const userSchema = new Schema<UserModelProps>({
     username: { type: String, unique: true, required: true },
@@ -43,6 +44,8 @@ function initUserModel(app: Application) {
   })
 
   userSchema.plugin(autoIncrement, { inc_field: 'id', id: 'users_id_counter' })
+
+  // @ts-ignore
   return app.mongoose.model<UserModelProps>('User', userSchema)
 
 }

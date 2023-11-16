@@ -1,7 +1,7 @@
 import { GlobalErrorTypes } from '../error'
 import { Controller } from 'egg'
 import resHelper from '../utils/resHelper'
-import { ParameterRules } from 'parameter'
+import { ParameterRules, ValidateError } from 'parameter'
 
 export default function validateInput(rules: ParameterRules | ((body: any) => ParameterRules), errorType: GlobalErrorTypes) {
   return function(_prototype, _key: string, descriptor: PropertyDescriptor) {
@@ -12,8 +12,10 @@ export default function validateInput(rules: ParameterRules | ((body: any) => Pa
       const body = ctx.request.body
       let errors: ValidateError[] | null = null
       if (typeof rules === 'function') {
+        // @ts-ignore
         errors = app.validator.validate(rules(body), body)
       } else {
+        // @ts-ignore
         errors = app.validator.validate(rules, body)
       }
 

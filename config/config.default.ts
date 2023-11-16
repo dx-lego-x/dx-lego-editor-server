@@ -91,6 +91,9 @@ export default (appInfo: EggAppInfo) => {
   config.static = {
     dir: [
       { prefix: '/public', dir: join(appInfo.baseDir, 'app/public') },
+      { prefix: '/static', dir: join(appInfo.baseDir, 'app/public/static') },
+      // { prefix: '/dx-page', dir: join(appInfo.baseDir, 'client-web-x/dx-page/build') }, // react build文件夹跟路径
+      // { prefix: '/static', dir: join(appInfo.baseDir, 'client-web-x/dx-page/build/static') }, // react build文件夹下的静态文件读取
       { prefix: '/uploads', dir: join(appInfo.baseDir, 'uploads') }
     ]
   }

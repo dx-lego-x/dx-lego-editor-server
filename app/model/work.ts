@@ -3,7 +3,9 @@ import * as AutoIncrementFactory from 'mongoose-sequence'
 import { WorkModelProps } from '../types/work'
 
 function initWorkModel(app: Application) {
+  // @ts-ignore
   const autoIncrement = AutoIncrementFactory(app.mongoose)
+  // @ts-ignore
   const Schema = app.mongoose.Schema
 
   const workSchema = new Schema<WorkModelProps>({
@@ -26,6 +28,7 @@ function initWorkModel(app: Application) {
   })
 
   workSchema.plugin(autoIncrement, { inc_field: 'id', id: 'works_id_counter' })
+  // @ts-ignore
   return app.mongoose.model('Work', workSchema)
 }
 

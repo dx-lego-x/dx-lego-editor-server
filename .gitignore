@@ -24,3 +24,6 @@ uploads/**
 !app/public/**
 !uploads/static
 !uploads/static/**
+
+app/view/*
+!app/view/layout.html

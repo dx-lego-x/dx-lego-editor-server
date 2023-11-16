@@ -1,6 +1,7 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
+    "jsx": "react-jsx",
     "target": "es2017",
     "module": "commonjs",
     "strict": true,

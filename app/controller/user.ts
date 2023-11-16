@@ -1,6 +1,7 @@
 import { Controller, Application } from 'egg'
 import resHelper from '../utils/resHelper'
 import { UserLoginProps, UserRegisterProps } from '../service/user'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import validateInput from '../decorator/validateInput'
 import { ParameterRuleItem, ParameterRules } from 'parameter'
 
@@ -12,6 +13,7 @@ const userValidateRules: ParameterRules = {
   nickName: { type: 'string', min: 4, allowEmpty: true },
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function makeRegisterRules(body?: UserRegisterProps): ParameterRules {
   const { type = 'email' } = body || {}
 
@@ -49,6 +51,7 @@ function makeRegisterRules(body?: UserRegisterProps): ParameterRules {
 
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function makeLoginRules(body?: UserLoginProps): ParameterRules {
   const { type = 'username' } = body || {}
   if (type === 'phoneNumber') {
@@ -63,6 +66,7 @@ function makeLoginRules(body?: UserLoginProps): ParameterRules {
 
 function genToken(app: Application, _id: string, id: string) {
   // 这里会把username和_id存到ctx.state.user里
+  // @ts-ignore
   return app.jwt.sign({ _id, id }, app.config.jwt.secret, { expiresIn: app.config.jwtExpires })
 }
 
