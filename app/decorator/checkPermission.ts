@@ -41,7 +41,6 @@ const defaultCheckOption: CheckOption = {
 
 function getQueryConditions(ctx: Context, option?: CheckOption) {
   const checkOption = { ...defaultCheckOption, ...option } as Required<CheckOption>
-  console.log('2 ->', option, checkOption)
   const { queryKey, ctxArgsOption } = checkOption
   const source = ctxArgsOption.key1 === 'params' ? ctx.params : ctx.request.body
   const queryConditions = { [queryKey]: source[ctxArgsOption.key2] }
@@ -62,8 +61,10 @@ export default function checkPermission(modelName: ModelName | ModelMapping, opt
       if (!ctx.state && !ctx.state.user) {
         return resHelper.errorWithType(ctx, onUserError)
       }
+
+      const _id = ctx.state.user._id
       // 加上用户信息供后续服务使用
-      const userInfo = await ctx.service.user.findUser({ _id: ctx.state.user._id })
+      const userInfo = await ctx.service.user.findUser({ _id })
       if (!userInfo) {
         return resHelper.errorWithType(ctx, onUserError)
       }
@@ -86,8 +87,9 @@ export default function checkPermission(modelName: ModelName | ModelMapping, opt
         const rule = ability.relevantRuleFor(action, caslModelName)
 
         if (rule && rule.conditions) {
-          console.log('1 ->', queryConditions)
+          console.log(1, queryConditions)
           const record = await ctx.model[mongooseModelName].findOne(queryConditions).lean()
+          console.log(2, record)
           permission = ability.can(action, subject(caslModelName, record))
           ctx.record = record
 
@@ -108,6 +110,8 @@ export default function checkPermission(modelName: ModelName | ModelMapping, opt
         }
 
       }
+
+      console.log(3)
       await originMethod.apply(this, args)
     }
   }

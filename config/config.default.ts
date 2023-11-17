@@ -60,7 +60,12 @@ export default (appInfo: EggAppInfo) => {
   config.jwt = {
     secret: '1234567890',
     enable: true,
-    match: [ '/api/v1/user/fetchUserInfo', '/api/v1/work', '/api/v1/utils/uploadImage', '/api/v1/channel' ]
+    match: [
+      '/api/v1/user/fetchUserInfo',
+      '/api/v1/work',
+      '/api/v1/utils/uploadImage',
+      '/api/v1/channel',
+    ]
   }
 
   config.redis = {

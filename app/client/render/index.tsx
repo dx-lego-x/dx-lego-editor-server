@@ -30,7 +30,8 @@ export function filterStyle(style: Partial<DxBrickStyleProps>) {
 function PreviewHint() {
   return (
     <div
-      style={{ width: '100%', backgroundColor: 'red', color: 'white', padding: '8px 16px' }}
+      style={{ width: '100%', backgroundColor: 'red', color: 'white', padding: '8px 16px', display: 'flex', justifyContent: 'center', boxSizing: 'border-box' }}
+      onClick={ () => console.log('别点了，删不掉的') }
     >
       仅供预览，请发布作品后，再正式使用
     </div>
