@@ -4,5 +4,4 @@ import renderApp from '../render'
 
 // @ts-ignore
 const initState = window.INITIAL_STATE
-console.log(initState)
 hydrateRoot(document.getElementById('app') as HTMLElement, renderApp(initState.workData, initState.type))

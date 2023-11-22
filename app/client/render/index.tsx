@@ -43,6 +43,7 @@ function App(props: { workData: WorkProps, type: 'preview' | 'publish' }) {
 
   const { workData, type = 'preview' } = props
   useEffect(() => {
+    // 删除保存schema数据的标签
     setTimeout(() => {
       const scriptDom = document.getElementById('init-state') as HTMLScriptElement | null
       scriptDom && scriptDom.parentNode?.removeChild(scriptDom)
@@ -75,6 +76,10 @@ function App(props: { workData: WorkProps, type: 'preview' | 'publish' }) {
                 {
                   pageSchema.props?.custom.children.map((brick: DxBrickSchema) => {
                     const Component = transferBrickComponent(brick.component || '')
+
+                    if (brick.editProps?.isHidden) {
+                      return null
+                    }
 
                     if (!Component) {
                       return null

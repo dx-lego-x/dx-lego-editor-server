@@ -12,6 +12,7 @@ logs/
 !.autod.conf.js
 
 app/**/*.js
+!app/client/webpack.client.js
 test/**/*.js
 config/**/*.js
 app/**/*.map
