@@ -36,6 +36,7 @@ function genEmptySchema(): DxLegoSchema {
       },
     }],
     currentPageId: pageId,
+    curerntPageSelected: false,
     currentBrickId: ''
   }
 }
@@ -67,6 +68,25 @@ const defaultTextStyleProps: any = {
   textDecoration: 'none',
   lineHeight: 'normal',
   textAlign: 'left',
+}
+const defaultImageStyleProps: any = {
+  width: '100%',
+  height: 'auto',
+  paddingLeft: '0px',
+  paddingRight: '0px',
+  paddingTop: '0px',
+  paddingBottom: '0px',
+  borderStyle: 'none',
+  borderColor: '#262626',
+  borderWidth: '0px',
+  borderRadius: '0px',
+  boxShadow: 'none',
+  opacity: '1',
+  position: 'static',
+  left: '0px',
+  top: '0px',
+  right: '0px',
+  bottom: '0px'
 }
 
 function genBrickList(): { id: string, groupType: string, groupName: string, groupBricks: SelectorBrickProps[] }[] {
@@ -114,6 +134,25 @@ function genBrickList(): { id: string, groupType: string, groupName: string, gro
         props: {
           style: { ...defaultTextStyleProps, fontSize: '16px', fontWeight: 'bold' },
           custom: { text: '小标题组件' }
+        }
+      }
+    }]
+  }, {
+    id: '2',
+    groupType: 'image',
+    groupName: '图片组件',
+    groupBricks: [{
+      _id: '4',
+      id: '4',
+      type: 'image',
+      schema: {
+        title: '普通图片',
+        desc: '',
+        component: 'Image',
+        sampleImg: '',
+        props: {
+          style: defaultImageStyleProps,
+          custom: { src: 'https://i1.sinaimg.cn/IT/s/2009-12-03/1259843938_HFR2ai.jpg' }
         }
       }
     }]

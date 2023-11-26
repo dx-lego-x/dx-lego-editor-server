@@ -1,8 +1,6 @@
 import { DxBrickProps, TextProps } from 'dx-lego-bricks'
 import { ObjectId } from 'mongoose'
 
-export * from 'dx-lego-bricks'
-
 export interface DxBrickEditProps {
   isHidden?: boolean
   isLocked?: boolean
@@ -23,6 +21,7 @@ export type DxPageSchema = DxBrickSchema<{ children: DxBrickSchema[], [key: stri
 export interface DxLegoSchema {
   pages: DxPageSchema[]
   currentPageId: string
+  curerntPageSelected: boolean
   currentBrickId: string
 }
 
@@ -57,7 +56,7 @@ export interface WorkProps extends WorkModelProps {
 export interface SelectorBrickModelProps {
   id: string
   type: 'text' | 'image' | 'shape'
-  schema: DxBrickSchema<TextProps>
+  schema: DxBrickSchema<any>
 }
 
 export interface SelectorBrickProps extends SelectorBrickModelProps {

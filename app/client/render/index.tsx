@@ -1,17 +1,17 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { Page, Text } from 'dx-lego-bricks/dist/cjs'
-import { DxBrickSchema, DxBrickStyleProps, WorkProps } from '../../types/work'
+import { DxBrickStyleProps, transferBrickComponent } from 'dx-lego-bricks/dist/cjs'
+import { DxBrickSchema, WorkProps } from '../../types/work'
 import { useEffect } from 'react'
 
-export function transferBrickComponent(componentName: string): any {
-  if (componentName === 'Page') {
-    return Page
-  } else if (componentName === 'Text') {
-    return Text
-  }
+// export function transferBrickComponent(componentName: string): any {
+//   if (componentName === 'Page') {
+//     return Page
+//   } else if (componentName === 'Text') {
+//     return Text
+//   }
 
-  return null
-}
+//   return null
+// }
 
 export function filterStyle(style: Partial<DxBrickStyleProps>) {
   const filteredStyle: Partial<DxBrickStyleProps> = {}
