@@ -90,12 +90,14 @@ function App(props: { workData: WorkProps, type: 'preview' | 'publish' }) {
                         key={ brick.id }
                         style={ brick.props?.style || {} }
                         custom={ brick.props?.custom }
+                        events={ brick.props?.events || {} }
                       />
                     )
                   })
                 }
               </>
             ) }}
+            events={ pageSchema.props?.events || {} }
           />
         </div>
       }

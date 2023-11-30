@@ -32,7 +32,8 @@ function genEmptySchema(): DxLegoSchema {
         },
         custom: {
           children: [],
-        }
+        },
+        events: {}
       },
     }],
     currentPageId: pageId,
@@ -105,7 +106,8 @@ function genBrickList(): { id: string, groupType: string, groupName: string, gro
         sampleImg: '',
         props: {
           style: defaultTextStyleProps,
-          custom: { text: '正文组件' }
+          custom: { text: '正文组件' },
+          events: {},
         }
       }
     }, {
@@ -119,7 +121,8 @@ function genBrickList(): { id: string, groupType: string, groupName: string, gro
         sampleImg: '',
         props: {
           style: { ...defaultTextStyleProps, fontSize: '18px', fontWeight: 'bold' },
-          custom: { text: '标题组件' }
+          custom: { text: '标题组件' },
+          events: {},
         }
       }
     }, {
@@ -133,7 +136,8 @@ function genBrickList(): { id: string, groupType: string, groupName: string, gro
         sampleImg: '',
         props: {
           style: { ...defaultTextStyleProps, fontSize: '16px', fontWeight: 'bold' },
-          custom: { text: '小标题组件' }
+          custom: { text: '小标题组件' },
+          events: {}
         }
       }
     }]
@@ -152,7 +156,8 @@ function genBrickList(): { id: string, groupType: string, groupName: string, gro
         sampleImg: '',
         props: {
           style: defaultImageStyleProps,
-          custom: { src: 'https://i1.sinaimg.cn/IT/s/2009-12-03/1259843938_HFR2ai.jpg' }
+          custom: { src: 'https://i1.sinaimg.cn/IT/s/2009-12-03/1259843938_HFR2ai.jpg' },
+          events: {}
         }
       }
     }]

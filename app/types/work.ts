@@ -1,4 +1,4 @@
-import { DxBrickProps, TextProps } from 'dx-lego-bricks'
+import { DxBrickProps } from 'dx-lego-bricks'
 import { ObjectId } from 'mongoose'
 
 export interface DxBrickEditProps {
