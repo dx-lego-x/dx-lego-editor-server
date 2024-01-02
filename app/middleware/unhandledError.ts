@@ -7,7 +7,9 @@ export default () => {
       await next()
     } catch (error: any) {
       if (error && error.status === 401) {
-        return resHelper.error(ctx, { errno: -1 })
+        console.log('用户登录失效', 401)
+        // return resHelper.error(ctx, { errno: -1 })
+        return resHelper.errorWithType(ctx, 'tokenInvalidError')
       }
 
       throw error

@@ -1,4 +1,9 @@
 export const userErrorMessages = {
+  tokenInvalidError: {
+    errno: 100401,
+    message: '登录失效'
+  },
+
   infoFetchFail: {
     errno: 101001,
     message: '用户信息获取失败'

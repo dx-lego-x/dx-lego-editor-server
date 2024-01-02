@@ -70,6 +70,7 @@ function genToken(app: Application, _id: string, id: string) {
   return app.jwt.sign({ _id, id }, app.config.jwt.secret, { expiresIn: app.config.jwtExpires })
 }
 
+// 测试账号：test2，密码：11
 export default class UserController extends Controller {
 
   async index() {

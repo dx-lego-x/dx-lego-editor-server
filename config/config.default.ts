@@ -65,7 +65,7 @@ export default (appInfo: EggAppInfo) => {
       '/api/v1/work',
       '/api/v1/utils/uploadImage',
       '/api/v1/channel',
-    ]
+    ],
   }
 
   config.redis = {
